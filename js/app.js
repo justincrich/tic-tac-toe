@@ -67,6 +67,7 @@ var module = (function(){
       //go back to game screen
       board.style.display = 'block';
       finish.style.display = 'none';
+      finish.className = 'screen screen-win';
     }
 
     //Listen for move
