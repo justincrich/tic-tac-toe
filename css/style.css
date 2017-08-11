@@ -48,7 +48,7 @@ h1 {
       font-size: 6em; }
     .screen-start .button {
       color: #54D17A; }
-    .screen-start h1 + .button {
+    .screen-start h1  {
       margin-top: 5em; }
   .screen-win p {
     font-size: 6em;
@@ -56,7 +56,7 @@ h1 {
     color: #fff;
     position: relative; }
     .screen-win p:before {
-      position: absolute;
+      position:inherit;
       left: 0;
       right: 0;
       color: #000;
@@ -65,13 +65,14 @@ h1 {
       line-height: 0;
       z-index: -1; }
   .screen-win-tie {
-    background: #54D17A; }   
+    background: #54D17A; }
   .screen-win-one {
     background: #FFA000; }
     .screen-win-one .button {
       color: #3688C3; }
     .screen-win-one p:before {
       content: "o";
+      color:#fff;
       top: 1.75rem; }
   .screen-win-two {
     background: #3688C3; }
@@ -79,8 +80,16 @@ h1 {
       color: #FFA000; }
     .screen-win-two p:before {
       content: "×";
+      color:#fff;
       top: 4.5rem; }
 
+.wContainer{
+  display: flex;
+  flex-direction: column;
+}
+.wContainer a{
+  position: relative;
+}
 .board {
   padding-top: 1em; }
   .board h1 {
@@ -116,6 +125,7 @@ h1 {
   margin: 3em auto 0; }
   .boxes .box {
     background: #EFEFEF;
+    z-index: 100;
     border-radius: 4px;
     width: 150px;
     height: 150px;
@@ -125,7 +135,7 @@ h1 {
     padding: 1.75em;
     cursor: pointer;
     box-sizing: border-box;
-    transition: 0.2s ease; 
+    transition: 0.2s ease;
     background-size: 100px 100px;
     background-repeat: no-repeat;
     background-position: center center;}
@@ -138,4 +148,40 @@ h1 {
       background-color: #3688C3;
       background-image: url(../img/x.svg); }
 
+/* --------------------------
+  Hover Styling
+--------------------------- */
+li *{
+  transform-origin: 50% 50%;
+}
+.hoverMarker{
 
+  width:100%;
+  height: 100%;
+  animation: pulse .3s 0s linear forwards;
+}
+  .hoverMarker.o g{
+    fill:#FFA000;
+  }
+
+  .hoverMarker.x g{
+    fill:#3688C3;
+  }
+
+
+
+
+/* --------------------------
+  Keyframes
+--------------------------- */
+@keyframes pulse {
+  0%{
+    transform: scale(1);
+  }
+  50%{
+    transform: scale(1.15);
+  }
+  100%{
+    transform: scale(1);
+  }
+}
