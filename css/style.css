@@ -48,7 +48,7 @@ h1 {
       font-size: 6em; }
     .screen-start .button {
       color: #54D17A; }
-    .screen-start h1  {
+    .screen-start h1 + .button {
       margin-top: 5em; }
   .screen-win p {
     font-size: 6em;
@@ -56,7 +56,7 @@ h1 {
     color: #fff;
     position: relative; }
     .screen-win p:before {
-      position:inherit;
+      position: absolute;
       left: 0;
       right: 0;
       color: #000;
@@ -72,7 +72,6 @@ h1 {
       color: #3688C3; }
     .screen-win-one p:before {
       content: "o";
-      color:#fff;
       top: 1.75rem; }
   .screen-win-two {
     background: #3688C3; }
@@ -80,16 +79,8 @@ h1 {
       color: #FFA000; }
     .screen-win-two p:before {
       content: "×";
-      color:#fff;
       top: 4.5rem; }
 
-.wContainer{
-  display: flex;
-  flex-direction: column;
-}
-.wContainer a{
-  position: relative;
-}
 .board {
   padding-top: 1em; }
   .board h1 {
@@ -125,7 +116,6 @@ h1 {
   margin: 3em auto 0; }
   .boxes .box {
     background: #EFEFEF;
-    z-index: 100;
     border-radius: 4px;
     width: 150px;
     height: 150px;
@@ -147,6 +137,8 @@ h1 {
     .boxes .box-filled-2 {
       background-color: #3688C3;
       background-image: url(../img/x.svg); }
+
+
 
 /* --------------------------
   Hover Styling

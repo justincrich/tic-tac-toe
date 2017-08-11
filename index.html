@@ -8,13 +8,13 @@
 	<link rel="stylesheet" href="css/style.css">
 </head>
 <body>
-	<div hidden class="screen screen-start" id="start">
+	<div class="screen screen-start" id="start">
 	  <header>
 	    <h1>Tic Tac Toe</h1>
 	    <a href="#" class="button startButton">Start game</a>
 	  </header>
 	</div>
-	<div class="board" id="board">
+	<div hidden class="board" id="board">
   <header>
     <h1>Tic Tac Toe</h1>
     <ul>
@@ -39,7 +39,7 @@
   </ul>
 </div>
 <div hidden class="screen screen-win" id="finish">
-  <header>
+  <header class='wContainer'>
     <h1>Tic Tac Toe</h1>
     <p class="message"></p>
     <a id="restart" href="#" class="button">New game</a>
