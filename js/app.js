@@ -1,6 +1,6 @@
 var module = (function(){
   /*UI Elements*/
-  let board = document.getElementById('board');
+  let boardUI = document.getElementById('board');
   let start = document.getElementById('start');
   let finish = document.getElementById('finish');
   let startBtn = document.querySelector('#start .button');
@@ -12,8 +12,11 @@ var module = (function(){
 
   /*GAME DATA HANDLER*/
   let activePlayer = 0;
+  //var that indicates if it's PvP or PvC
+  //PvP = 1, PvC = 0
+  let mode = 0;
   let move = 0;
-  let moves = [
+  let board = [
     [null,null,null],
     [null,null,null],
     [null,null,null]
@@ -23,16 +26,16 @@ var module = (function(){
 
 /*GAME EVENT HANDLER*/
   window.addEventListener("load",(e)=>{
-    //Listen for start game and then setup/show board
+    //Listen for start game and then setup/show boardUI
     startBtn.onclick = ()=>{
-      board.style.display = 'block';
+      boardUI.style.display = 'block';
       start.style.display = 'none';
 
     }
 
     restartBtn.onclick=()=>{
-      //reset moves Array
-      moves = [
+      //reset board Array
+      board = [
         [null,null,null],
         [null,null,null],
         [null,null,null]
@@ -48,7 +51,7 @@ var module = (function(){
 
 
       //go back to game screen
-      board.style.display = 'block';
+      boardUI.style.display = 'block';
       finish.style.display = 'none';
       finish.className = 'screen screen-win';
     }
@@ -58,16 +61,13 @@ var module = (function(){
     Array.from(ul.children).forEach(element=>{
         //event listeners for click
         element.addEventListener('click',(e)=>{
-          console.log('click LI', e.target.id);
           handleClick(element)
         });
         //event listeners for mouseover
         element.addEventListener('mouseenter',(e)=>{
-          console.log('mouse enter ', e.target.id);
           toggleImg(activePlayer,element);
         });
         element.addEventListener('mouseleave',(e)=>{
-          console.log('mouse leave ', e.target.id);
           toggleImg(activePlayer,element);
         });
     });
@@ -89,21 +89,24 @@ var module = (function(){
     let col = parseInt(id[1]);
     console.log(row,col);
     let box = document.getElementById(element.id);
-    if(moves[row][col]===null){
+    if(board[row][col]===null){
       if(activePlayer === 0){
         //Log player O
         //Player O is logged in the move matrix as false
-        moves[row][col] = false;
+        board[row][col] = false;
 
         activePlayer = 1;
         box.classList.add('box-filled-1');
         box.innerHTML = '';
         playerO.classList.remove('active');
         playerX.classList.add('active');
-      }else{
+        if(mode==0){
+          setTimeout(aiMove(),1000);
+        }
+      }else if(mode == 1 && activePlayer == 1){
         //Log player X
         //Player X is logged in the move matrix as true
-        moves[row][col] = true;
+        board[row][col] = true;
         activePlayer = 0;
         box.classList.add('box-filled-2');
         box.innerHTML = '';
@@ -115,7 +118,7 @@ var module = (function(){
       console.log('not avaliable!');
     }
     //check win state
-    let res = checkWin(moves)
+    let res = checkWin(board)
     console.log('result',res);
     switch(res){
       case 1:{
@@ -224,14 +227,78 @@ var module = (function(){
     }
     // board.setAttribute('hidden','true');
     // finish.setAttribute('hidden','false');
-    board.style.display = 'none';
+    boardUI.style.display = 'none';
     finish.style.display = 'block';
   }
+
+  function aiMove(){
+    board = minimaxMove(board);
+    // console.log(numNodes);
+    console.log(board);
+    board.forEach((row, index, arr)=>{
+      for(i in row){
+        if(row[i]===true){
+          let box = document.getElementById(index+''+i);
+          box.innerHTML = '';
+          box.className = 'box box-filled-2';
+        }
+      }
+    });
+    activePlayer = 0;
+    playerO.classList.add('active');
+
+  }
+
+  function minimaxMove(submittedBoard){
+    numNodes = 0;
+    return recurseMinimax(submittedBoard,true)[1];
+  }
+
+  let numNodes = 0;
+
+  function recurseMinimax(playerBoard, player) {
+    numNodes++;
+    var winner = checkWin(playerBoard);
+    if (winner != null) {
+        switch(winner) {
+            case 1:
+                // AI wins
+                return [1, playerBoard]
+            case 0:
+                // opponent (O) wins
+                return [-1, playerBoard]
+            case -1:
+                // Tie
+                return [0, playerBoard];
+        }
+    } else {
+        // Next states
+        var nextVal = null;
+        var nextBoard = null;
+
+        for (var i = 0; i < 3; i++) {
+            for (var j = 0; j < 3; j++) {
+                if (playerBoard[i][j] == null) {
+                    playerBoard[i][j] = player;
+                    var value = recurseMinimax(playerBoard, !player)[0];
+                    if ((player && (nextVal == null || value > nextVal)) || (!player && (nextVal == null || value < nextVal))) {
+                        nextBoard = playerBoard.map(function(arr) {
+                            return arr.slice();
+                        });
+                        nextVal = value;
+                    }
+                    playerBoard[i][j] = null;
+                }
+            }
+        }
+        return [nextVal, nextBoard];
+    }
+}
 
 
   return {
     selectionsAll:()=>{
-      return moves;
+      return board;
     }
 
   }
