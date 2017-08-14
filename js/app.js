@@ -29,7 +29,6 @@ var module = (function(){
 
 /*GAME START PAGE LOGIC*/
 
-
 Array.from(bullets).forEach((bullet,index,arr)=>{
   bullet.onclick=()=>{
     if(index == 0){
