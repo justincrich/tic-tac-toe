@@ -1,7 +1,8 @@
 @charset "UTF-8";
 body {
   background: #fff;
-  font-family: "Montserrat", sans-serif; }
+  font-family: "Montserrat", sans-serif;
+}
 
 ul {
   margin: 0;
@@ -14,6 +15,34 @@ h1 {
   margin: 0 auto;
   text-align: left;
   width: 1.875em; }
+
+header {
+  display: flex;
+  flex-direction: column;
+  width:200px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.gameType{
+  color:#fff;
+  display:flex;
+  flex-direction: column;
+}
+.err{
+  color:#FF0000;
+  margin-bottom: 10px;
+  font-size: 1.1em;
+}
+  .bulletContainer{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+  }
+  .bulletContainer li{
+
+  }
+
 
 .button {
   background: #fff;
@@ -43,9 +72,14 @@ h1 {
   .screen h1 {
     color: #fff; }
   .screen-start {
-    background: #54D17A; }
+    background: #54D17A;
+  }
     .screen-start h1 {
+      margin-bottom: 20px;
       font-size: 6em; }
+    .screen-start input{
+      margin-bottom: 20px;
+    }
     .screen-start .button {
       color: #54D17A; }
     .screen-start h1 + .button {
@@ -110,6 +144,10 @@ h1 {
     background: #FFA000; }
   #player2.active {
     background: #3688C3; }
+
+  .players.active .boardPlayerLabel{
+    color: #fff;
+  }
 
 .boxes {
   width: 480px;
