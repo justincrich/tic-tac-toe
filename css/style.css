@@ -81,7 +81,8 @@ header {
       margin-bottom: 20px;
     }
     .screen-start .button {
-      color: #54D17A; }
+      color: #54D17A;
+    }
     .screen-start h1 + .button {
       margin-top: 5em; }
   .screen-win p {
@@ -90,7 +91,7 @@ header {
     color: #fff;
     position: relative; }
     .screen-win p:before {
-      position: absolute;
+
       left: 0;
       right: 0;
       color: #000;
@@ -99,7 +100,7 @@ header {
       line-height: 0;
       z-index: -1; }
   .screen-win-tie {
-    background: #54D17A; }
+    background: #a2a2a2; }
   .screen-win-one {
     background: #FFA000; }
     .screen-win-one .button {
@@ -114,6 +115,7 @@ header {
     .screen-win-two p:before {
       content: "×";
       top: 4.5rem; }
+
 
 .board {
   padding-top: 1em; }

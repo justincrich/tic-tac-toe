@@ -156,7 +156,6 @@ Array.from(bullets).forEach((bullet,index,arr)=>{
     }
     //check win state
     let res = checkWin(board)
-    console.log('result',res);
     //displayWin if there is one;
     displayWin(res);
   }
@@ -237,21 +236,29 @@ Array.from(bullets).forEach((bullet,index,arr)=>{
   }
 
   function displayWin(resNum){
+    let winHeader = document.getElementById('winHeader');
+    let winNote = document.getElementById('winNote');
+    winNote.innerHTML = '';
     switch(resNum){
       case 1:{
         //X Wins
         finish.classList.add('screen-win-two');
+        winHeader.innerHTML = xName+' Wins';
       }
       break;
       case 0:{
         //O Wins
         console.log('O Wins')
+        winHeader.innerHTML = oName+' Wins';
         finish.classList.add('screen-win-one');
+
       }
       break;
       case -1:{
         //all spaces taken ... draw
         console.log('Draw');
+        winHeader.innerHTML = '';
+        winNote.innerHTML = 'Tie';
         finish.classList.add('screen-win-tie');
       }
       break;
@@ -260,7 +267,7 @@ Array.from(bullets).forEach((bullet,index,arr)=>{
       }
     }
 
-    if(resNum){
+    if(resNum!=null){
       boardUI.style.display = 'none';
       finish.style.display = 'block';
     }
@@ -365,6 +372,7 @@ Array.from(bullets).forEach((bullet,index,arr)=>{
       case 0:{
         console.log('1 player');
         oName = playerArr[0];
+        xName = 'Computer';
         //hide errors
         err1.style.display = 'none';
         err2.style.display = 'none';
