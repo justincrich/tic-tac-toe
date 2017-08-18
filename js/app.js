@@ -243,6 +243,7 @@ Array.from(bullets).forEach((bullet,index,arr)=>{
         //X Wins
         finish.classList.add('screen-win-two');
         winHeader.innerHTML = xName+' Wins';
+        return true;
       }
       break;
       case 0:{
@@ -250,6 +251,7 @@ Array.from(bullets).forEach((bullet,index,arr)=>{
         console.log('O Wins')
         winHeader.innerHTML = oName+' Wins';
         finish.classList.add('screen-win-one');
+        return true;
 
       }
       break;
@@ -259,10 +261,12 @@ Array.from(bullets).forEach((bullet,index,arr)=>{
         winHeader.innerHTML = '';
         winNote.innerHTML = 'Tie';
         finish.classList.add('screen-win-tie');
+        return true;
       }
       break;
       default:{
         console.log('keep going');
+        return false;
       }
     }
 
@@ -286,30 +290,27 @@ Array.from(bullets).forEach((bullet,index,arr)=>{
       }
     });
     //check if the user has won
-    displayWin(checkWin(board));
+    let isWon = displayWin(checkWin(board));
     //if not switch players
-    activePlayer = 0;
-    //setup UI state
-    playerO.classList.add('active');
-    playerX.classList.remove('active');
-    //show hover status if users turn starts with mouse over a box
-    if (hoverHolder != '') {
-      let element = document.getElementById(hoverHolder);
-      let elClasses = element.className.indexOf('box-filled-2');
-      console.log(elClasses);
-      let oIMG =
-      '<svg class="o hoverMarker" xmlns="http://www.w3.org/2000/svg" width="42" height="42" viewBox="0 0 42 42" version="1.1"><g stroke="none" stroke-width="1" fill="none" fill-rule="evenodd"><g transform="translate(-200.000000, -60.000000)" fill="#000000"><g transform="translate(200.000000, 60.000000)"><path d="M21 36.6L21 36.6C29.6 36.6 36.6 29.6 36.6 21 36.6 12.4 29.6 5.4 21 5.4 12.4 5.4 5.4 12.4 5.4 21 5.4 29.6 12.4 36.6 21 36.6L21 36.6ZM21 42L21 42C9.4 42 0 32.6 0 21 0 9.4 9.4 0 21 0 32.6 0 42 9.4 42 21 42 32.6 32.6 42 21 42L21 42Z"/></g></g></g></svg>';
-      //if box-filled-2 class is NOT part of the elements classes put a hover icon in at the start of the turn
-      (elClasses==-1? element.innerHTML = oIMG:element.innerHTML = '' );
+    if(isWon==false){
+      activePlayer = 0;
+      //setup UI state
+      playerO.classList.add('active');
+      playerX.classList.remove('active');
+      //show hover status if users turn starts with mouse over a box
+      if (hoverHolder != '') {
+        let element = document.getElementById(hoverHolder);
+        let elClasses = element.className.indexOf('box-filled-2');
+        console.log(elClasses);
+        let oIMG =
+        '<svg class="o hoverMarker" xmlns="http://www.w3.org/2000/svg" width="42" height="42" viewBox="0 0 42 42" version="1.1"><g stroke="none" stroke-width="1" fill="none" fill-rule="evenodd"><g transform="translate(-200.000000, -60.000000)" fill="#000000"><g transform="translate(200.000000, 60.000000)"><path d="M21 36.6L21 36.6C29.6 36.6 36.6 29.6 36.6 21 36.6 12.4 29.6 5.4 21 5.4 12.4 5.4 5.4 12.4 5.4 21 5.4 29.6 12.4 36.6 21 36.6L21 36.6ZM21 42L21 42C9.4 42 0 32.6 0 21 0 9.4 9.4 0 21 0 32.6 0 42 9.4 42 21 42 32.6 32.6 42 21 42L21 42Z"/></g></g></g></svg>';
+        //if box-filled-2 class is NOT part of the elements classes put a hover icon in at the start of the turn
+        (elClasses==-1? element.innerHTML = oIMG:element.innerHTML = '' );
+
+      }
+
 
     }
-    // ul.childNodes.forEach(item=>{
-    //   console.log(item.getBoundingClientRect());
-    //   if(item.mouseIsOver){
-    //     console.log('mouse is over');
-    //   }
-    // });
-
 
   }
 
