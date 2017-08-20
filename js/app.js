@@ -238,11 +238,15 @@ Array.from(bullets).forEach((bullet,index,arr)=>{
     let winHeader = document.getElementById('winHeader');
     let winNote = document.getElementById('winNote');
     winNote.innerHTML = '';
+
     switch(resNum){
       case 1:{
         //X Wins
+        console.log('x wins')
         finish.classList.add('screen-win-two');
         winHeader.innerHTML = xName+' Wins';
+        boardUI.style.display = 'none';
+        finish.style.display = 'block';
         return true;
       }
       break;
@@ -251,6 +255,8 @@ Array.from(bullets).forEach((bullet,index,arr)=>{
         console.log('O Wins')
         winHeader.innerHTML = oName+' Wins';
         finish.classList.add('screen-win-one');
+        boardUI.style.display = 'none';
+        finish.style.display = 'block';
         return true;
 
       }
@@ -261,6 +267,8 @@ Array.from(bullets).forEach((bullet,index,arr)=>{
         winHeader.innerHTML = '';
         winNote.innerHTML = 'Tie';
         finish.classList.add('screen-win-tie');
+        boardUI.style.display = 'none';
+        finish.style.display = 'block';
         return true;
       }
       break;
@@ -268,11 +276,6 @@ Array.from(bullets).forEach((bullet,index,arr)=>{
         console.log('keep going');
         return false;
       }
-    }
-
-    if(resNum!=null){
-      boardUI.style.display = 'none';
-      finish.style.display = 'block';
     }
 
   }
